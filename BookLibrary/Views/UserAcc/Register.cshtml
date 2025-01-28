@@ -1,0 +1,60 @@
+﻿@model BookLibrary.Models.UserAcc
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 85vh; margin-top: 4rem; margin-bottom: 4rem;">
+    <div class="container p-4 shadow-lg rounded" style="width: 60%; max-width: 700px; background-color: #f8f9fa;">
+        <h2 class="text-center mb-4">Register</h2>
+        <form asp-action="Register" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="FName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="FName" asp-for="FName" required />
+                <span asp-validation-for="FName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="LName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="LName" asp-for="LName" required />
+                <span asp-validation-for="LName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="Email" asp-for="Email" required />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="UserName" class="form-label">Username</label>
+                <input type="text" class="form-control" id="UserName" asp-for="UserName" required />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="Password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="Password" asp-for="Password" required />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="ImgPath" class="form-label">Profile Image</label>
+                <input type="file" class="form-control" id="ImgPath" name="ImgPath" />
+                <span asp-validation-for="ImgPath" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label for="PhoneNo" class="form-label">Phone Number</label>
+                <input type="text" class="form-control" id="PhoneNo" asp-for="PhoneNo" required />
+                <span asp-validation-for="PhoneNo" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" id="Role" asp-for="Role" value="User" />
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+
+            <div class="text-center mt-3">
+                <a href="@Url.Action("Login", "UserAcc")" class="text-decoration-none">Already have an account? Login here</a>
+            </div>
+        </form>
+    </div>
+</div>

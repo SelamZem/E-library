@@ -1,0 +1,43 @@
+﻿@model BookLibrary.Models.Book
+
+@{
+    ViewData["Title"] = "Edit Book";
+}
+
+<h2>Edit Book</h2>
+
+<form asp-action="Edit" asp-controller="Book" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="BookId" />
+
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" value="@Model.Title" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Author"></label>
+        <input asp-for="Author" class="form-control" value="@Model.Author" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Publisher"></label>
+        <input asp-for="Publisher" class="form-control" value="@Model.Publisher" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Language"></label>
+        <input asp-for="Language" class="form-control" value="@Model.Language" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Quantity"></label>
+        <input asp-for="Quantity" type="number" class="form-control" value="@Model.Quantity" />
+    </div>
+    <div class="form-group">
+        <label>Current Cover Image</label>
+        <br />
+        <img src="/images/books/@Model.BImgPath" alt="Book Cover" style="max-width: 150px;" />
+    </div>
+    <div class="form-group">
+        <label asp-for="BImgFile">Update Cover Image</label>
+        <input asp-for="BImgFile" type="file" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>

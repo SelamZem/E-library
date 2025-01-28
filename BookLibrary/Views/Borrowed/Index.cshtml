@@ -1,0 +1,32 @@
+﻿@model IEnumerable<BookLibrary.Models.BorrowedBookViewModel>
+@{
+    Layout = "~/Views/Shared/_Lviews.cshtml";  
+}
+
+@section NavBarLinks {
+    <a href="@Url.Action("Index", "Book")" class="btn btn-outline-primary ms-3">Books</a>
+   
+}
+
+<h2>Borrowed Books</h2>
+<p>Here is the list of books you have borrowed:</p>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var book in Model)
+    {
+        <div class="col">
+            <div class="card h-100">
+                <img src="@book.BImgPath" class="card-img-top" alt="@book.Title" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">@book.Title</h5>
+                    <p class="card-text">Author: @book.Author</p>
+                    <p class="card-text">Days Left: @book.DaysLeft</p>
+                    <form action="@Url.Action("ReturnBook", "Borrowed")" method="post">
+                        <input type="hidden" name="bookId" value="@book.BookId" />
+                        <button type="submit" class="btn btn-primary">Return</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>

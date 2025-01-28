@@ -1,0 +1,44 @@
+﻿@model IEnumerable<BookLibrary.Models.Book> 
+
+@{
+    ViewData["Title"] = "Books List";
+}
+
+<h2>Books List</h2>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publisher</th>
+            <th>Language</th>
+            <th>Quantity</th>
+            <th>Book Cover</th>
+            <th>Actions</th> 
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Author</td>
+                <td>@book.Publisher</td>
+                <td>@book.Language</td>
+                <td>@book.Quantity</td>
+                <td>
+                   
+                    <img src="@book.BImgPath" alt="Book Cover" style="width: 100px; height: 150px;" />
+                </td>
+                <td>
+                   
+                    <a href="@Url.Action("Edit", "Book", new { id = book.BookId })" class="btn btn-warning">Edit</a>
+                    <a href="@Url.Action("Delete", "Book", new { id = book.BookId })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a href="@Url.Action("Add", "Book")" class="btn btn-primary">Add New Book</a>

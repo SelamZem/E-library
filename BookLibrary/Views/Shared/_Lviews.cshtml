@@ -1,0 +1,76 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="@Url.Action("Index", "Home")">Book Library</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="ms-auto d-flex align-items-center">
+                    <form class="d-flex me-3" method="get" action="@Url.Action("Views", "Book")" style="border-bottom: 2px solid #ced4da; padding: 5px;">
+                        <input class="form-control border-0 shadow-none"
+                               type="search"
+                               placeholder="Search books"
+                               name="search"
+                               aria-label="Search"
+                               style="box-shadow: none; border: none; padding-left: 0; background-color: #f8f9fa;">
+                        <button class="btn btn-outline-secondary border-0" type="submit" aria-label="Search">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </form>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle fw-bold" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Language
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item fw-bold" href="@Url.Action("Views", "Book", new { language = "English" })">English</a></li>
+                            <li><a class="dropdown-item fw-bold" href="@Url.Action("Views", "Book", new { language = "Amharic" })">Amharic</a></li>
+                            <li><a class="dropdown-item fw-bold" href="@Url.Action("Views", "Book", new { language = "Others" })">Others</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+                @RenderSection("NavBarLinks", required: false)
+            </div>
+        </div>
+    </nav>
+
+    @if (TempData["tempError"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            @TempData["tempError"]
+        </div>
+    }        
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger text-center">
+            @TempData["Error"]
+        </div>
+    }
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success text-center">
+            @TempData["Message"]
+        </div>
+    }
+    <div class="container mt-4">
+        @RenderBody()
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</body>
+</html>

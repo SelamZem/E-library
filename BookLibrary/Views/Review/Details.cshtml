@@ -1,0 +1,176 @@
+﻿@model BookLibrary.Models.BookReviewViewModel
+
+<div class="book-details">
+    <div class="book-info-container">
+        <!-- Book Image on the Left -->
+        <div class="book-image">
+            <img src="@Model.Book.BImgPath" alt="Book Image" />
+        </div>
+
+        <!-- Book Info on the Right -->
+        <div class="book-info">
+    <h2>@Model.Book.Title</h2>
+    <p><strong>Author:</strong> @Model.Book.Author</p>
+    <p><strong>Language:</strong> @Model.Book.Language</p>
+    <p><strong>Publisher:</strong> @Model.Book.Publisher</p>
+    <p><strong>Average Rating:</strong> @Model.AverageRating.ToString("F1")</p>
+    <p>
+        <strong>Availability:</strong>
+        @if (Model.Book.Quantity > 0)
+        {
+            <span style="color: green;">Available</span>
+        }
+        else
+        {
+            <span style="color: red;">Unavailable</span>
+        }
+    </p>
+
+    @if (Model.Book.Quantity > 0)
+    {
+                <form method="post" asp-controller="Borrowed" asp-action="BorrowBook" asp-route-bookId="@Model.Book.BookId">
+            <button type="submit" style="margin-top: 10px; background-color: #007BFF; color: white; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer;">
+                Borrow
+            </button>
+        </form>
+    }
+</div>
+
+    </div>
+
+    <div class="reviews-section">
+        <h3>Reviews</h3>
+        @if (Model.Reviews != null && Model.Reviews.Any())
+        {
+            foreach (var review in Model.Reviews)
+            {
+                <div class="review">
+                    @if (review.UserAcc != null)
+                    {
+                        <p><strong>@review.UserAcc.UserName</strong>: @review.CommentText</p>
+                    }
+                    else
+                    {
+                        <p><strong>Unknown User</strong>: @review.CommentText</p>
+                    }
+                    <p>Rating: @review.Rating</p>
+                    <p>@review.CommentDate.ToShortDateString()</p>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No reviews available for this book.</p>
+        }
+    </div>
+
+    <!-- Add New Review -->
+    <div class="add-review">
+        <h4>Post a Review</h4>
+        <form method="post" asp-action="PostReview" asp-route-bookId="@Model.Book.BookId">
+            <textarea name="commentText" required placeholder="Write your comment here..."></textarea>
+            <br />
+            <label for="rating">Rating:</label>
+            <select name="rating" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <br />
+            <!-- Hidden field to pass the UserId (e.g., from session or logged-in user) -->
+            <input type="hidden" name="userId" value="@ViewData["UserId"]" />
+            <button type="submit">Post Review</button>
+        </form>
+    </div>
+</div>
+
+<!-- Styles for the Layout -->
+<style>
+    .book-details {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .book-info-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .book-image {
+        flex: 1;
+        max-width: 300px;
+        margin-right: 20px;
+    }
+
+    .book-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .book-info {
+        flex: 2;
+        max-width: 700px;
+    }
+
+    .book-info h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .book-info p {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+
+    .reviews-section {
+        margin-top: 30px;
+    }
+
+    .review {
+        border-top: 1px solid #ccc;
+        padding: 10px 0;
+    }
+
+    .review p {
+        margin: 5px 0;
+    }
+
+    .add-review {
+        margin-top: 40px;
+    }
+
+    .add-review textarea {
+        width: 100%;
+        height: 100px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+
+    .add-review select {
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+
+    .add-review button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .add-review button:hover {
+        background-color: #45a049;
+    }
+</style>
